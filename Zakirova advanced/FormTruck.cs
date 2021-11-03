@@ -43,8 +43,11 @@ namespace Zakirova
         {
             Random rnd = new Random();
             truck = new DumpTruck();
+            bool tmp = true;
+            if(Convert.ToInt32(trWheel.SelectedItem) == 2 || Convert.ToInt32(trWheel.SelectedItem) == 3 ||
+                Convert.ToInt32(trWheel.SelectedItem) == 4) { tmp = false; }
             truck.Init(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue,
-            Color.Yellow, true, true, true, true, Convert.ToInt32(trWheel.SelectedItem));
+            Color.Yellow, true, true, true, true, Convert.ToInt32(trWheel.SelectedItem), tmp);
             truck.SetPosition(rnd.Next(80, 500), rnd.Next(10, 100), pictureBoxTruck.Width, pictureBoxTruck.Height);
             Draw();
         }

@@ -37,17 +37,17 @@ namespace Zakirova
         Brush dopwheelsbrush = new SolidBrush(Color.Red);
         public void DrawTwo(Graphics g, float X, float Y)
         {
-          g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
-          g.DrawEllipse(dopwheelspen, X + 60, Y + 24, 20, 20);
+            g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
+            g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
 
-          g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
-          g.FillEllipse(dopwheelsbrush, X + 60, Y + 24, 20, 20);
+            g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
+            g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
         }
         public void DrawThree(Graphics g, float X, float Y)
         {
             DrawTwo(g, X, Y);
-            g.DrawEllipse(dopwheelspen, X + 15, Y + 24, 20, 20);
-            g.FillEllipse(dopwheelsbrush, X + 15, Y + 24, 20, 20);
+            g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
+            g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
         }
         public void DrawFour(Graphics g, float X, float Y)
         {

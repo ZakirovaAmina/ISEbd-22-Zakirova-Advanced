@@ -63,6 +63,11 @@ namespace Zakirova
         /// </summary>
         public bool Carcase { private set; get; }
         /// <summary>
+        /// Признак исходных колес
+        /// </summary>
+        public bool Wheels { private set; get; }
+        /// <summary>
+        /// <summary>
         /// Признак наличия передней фары
         /// </summary>
         public bool FrontLight { private set; get; }
@@ -83,10 +88,9 @@ namespace Zakirova
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
         public void Init(int maxSpeed, float weight, Color mainColor, Color dopColor,
-       bool duct, bool carcase, bool frontLight, bool backLight, int numwheel)
+       bool duct, bool carcase, bool frontLight, bool backLight, int numwheel, bool wheels)
         {
             MaxSpeed = maxSpeed;
-
             Weight = weight;
             MainColor = mainColor;
             DopColor = dopColor;
@@ -95,6 +99,7 @@ namespace Zakirova
             FrontLight = frontLight;
             BackLight = backLight;
             Number = new ClassDop(numwheel);
+            Wheels = wheels;
         }
         /// <summary>
         /// Установка позиции автомобиля
@@ -117,23 +122,22 @@ namespace Zakirova
         /// <param name="direction">Направление</param>
         public void MoveTransport(Direction direction)
         {
-            int scale = 63;
             float step = MaxSpeed * 100 / Weight;
             switch (direction)
             {
                 // вправо
                 case Direction.Right:
-                    if (_startPosX + step < _pictureWidth - truckWidth - scale) { _startPosX += step; }
+                    if (_startPosX + step < _pictureWidth - truckWidth) { _startPosX += step; }
                     break;
 
                 //влево
                 case Direction.Left:
-                    if (_startPosX - step > scale) { _startPosX -= step; }
+                    if (_startPosX - step > truckWidth) { _startPosX -= step; }
                     break;
 
                 //вверх
                 case Direction.Up:
-                    if (_startPosY - step > scale) { _startPosY -= step; }
+                    if (_startPosY - step > truckHeight) { _startPosY -= step; }
                     break;
 
                 //вниз
@@ -166,23 +170,17 @@ namespace Zakirova
             g.FillRectangle(fond, _startPosX, _startPosY, 100, 25);
             g.FillRectangle(fond, _startPosX + 60, _startPosY - 40, 40, 37);
 
-            g.DrawEllipse(wheel, _startPosX + 75, _startPosY + 24, 20, 20);
-            g.DrawEllipse(wheel, _startPosX + 20, _startPosY + 24, 20, 20);
-            g.DrawEllipse(wheel, _startPosX, _startPosY + 24, 20, 20);
-
-            g.FillEllipse(wheels, _startPosX + 75, _startPosY + 24, 20, 20);
-            g.FillEllipse(wheels, _startPosX + 20, _startPosY + 24, 20, 20);
-            g.FillEllipse(wheels, _startPosX, _startPosY + 24, 20, 20);
+           
 
             if (FrontLight)
             {
-                g.DrawEllipse(light1, _startPosX + 100, _startPosY, 65, 20);
-                g.FillEllipse(light, _startPosX + 100, _startPosY, 65, 20);
+                g.DrawEllipse(light1, _startPosX + 100, _startPosY, 80, 20);
+                g.FillEllipse(light, _startPosX + 100, _startPosY, 80, 20);
             }
             if (BackLight)
             {
-                g.DrawEllipse(light1, _startPosX - 65, _startPosY + 5, 65, 20);
-                g.FillEllipse(light, _startPosX - 65, _startPosY + 5, 65, 20);
+                g.DrawEllipse(light1, _startPosX - 80, _startPosY + 5, 80, 20);
+                g.FillEllipse(light, _startPosX - 80, _startPosY + 5, 80, 20);
             }
             if (Duct)
             {
@@ -194,7 +192,18 @@ namespace Zakirova
                 g.DrawRectangle(back1, _startPosX, _startPosY - 30, 60, 40);
                 g.FillRectangle(back, _startPosX, _startPosY - 30, 60, 40);
             }
-            Number.DrawWheels(g, _startPosX, _startPosY);
+            if (Wheels) 
+            {
+                g.DrawEllipse(wheel, _startPosX + 75, _startPosY + 24, 20, 20);
+                g.DrawEllipse(wheel, _startPosX + 20, _startPosY + 24, 20, 20);
+                g.DrawEllipse(wheel, _startPosX, _startPosY + 24, 20, 20);
+
+                g.FillEllipse(wheels, _startPosX + 75, _startPosY + 24, 20, 20);
+                g.FillEllipse(wheels, _startPosX + 20, _startPosY + 24, 20, 20);
+                g.FillEllipse(wheels, _startPosX, _startPosY + 24, 20, 20);
+            }
+                Number.DrawWheels(g, _startPosX, _startPosY);      
+            
         }
     }   
 }
