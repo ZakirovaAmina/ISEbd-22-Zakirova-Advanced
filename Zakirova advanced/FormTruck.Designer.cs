@@ -35,6 +35,7 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.pictureBoxTruck = new System.Windows.Forms.PictureBox();
             this.trWheel = new System.Windows.Forms.ComboBox();
+            this.ornwheels = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTruck)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,17 +114,31 @@
             "2",
             "3",
             "4"});
-            this.trWheel.Location = new System.Drawing.Point(155, 13);
+            this.trWheel.Location = new System.Drawing.Point(232, 4);
             this.trWheel.Name = "trWheel";
-            this.trWheel.Size = new System.Drawing.Size(153, 21);
-            this.trWheel.TabIndex = 7;
+            this.trWheel.Size = new System.Drawing.Size(121, 21);
+            this.trWheel.TabIndex = 8;
             this.trWheel.Text = "Сколько колес?";
             // 
-            // Form1
+            // ornwheels
+            // 
+            this.ornwheels.FormattingEnabled = true;
+            this.ornwheels.Items.AddRange(new object[] {
+            "орнамент 1",
+            "орнамент 2",
+            "орнамент 3"});
+            this.ornwheels.Location = new System.Drawing.Point(359, 4);
+            this.ornwheels.Name = "ornwheels";
+            this.ornwheels.Size = new System.Drawing.Size(121, 21);
+            this.ornwheels.TabIndex = 9;
+            this.ornwheels.Text = "Какой орнамент?";
+            // 
+            // FormTruck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ornwheels);
             this.Controls.Add(this.trWheel);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonDown);
@@ -131,7 +146,7 @@
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBoxTruck);
-            this.Name = "Form1";
+            this.Name = "FormTruck";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "dump truck";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTruck)).EndInit();
@@ -147,6 +162,7 @@
 		private System.Windows.Forms.Button buttonRight;
 		private System.Windows.Forms.PictureBox pictureBoxTruck;
         private System.Windows.Forms.ComboBox trWheel;
+        private System.Windows.Forms.ComboBox ornwheels;
     }
 }
 

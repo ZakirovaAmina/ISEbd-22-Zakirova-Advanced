@@ -7,53 +7,67 @@ using System.Threading.Tasks;
 
 namespace Zakirova
 {
-    class ClassDop
+    class ClassDop : InterDop
     {
         private EnumW newEnum;
-      
+
         public int Number { set => newEnum = (EnumW)value; }
-        public void DrawWheels(Graphics g, float _startPosX, float _startPosY)
-        {
-            switch (newEnum)
-            {
-                case EnumW.two:
-                    DrawTwo(g, _startPosX, _startPosY);
-                    break;
-
-                case EnumW.three:
-                    DrawThree(g, _startPosX, _startPosY);
-                    break;
-
-                case EnumW.four:
-                    DrawFour(g, _startPosX, _startPosY);
-                    break;
-            }
-        }
+       
         public ClassDop(int wh_cnt)
         {
             Number = wh_cnt;
-        }  
-        Pen dopwheelspen = new Pen(Color.Black);
-        Brush dopwheelsbrush = new SolidBrush(Color.Red);
+        }
+        
+        public void DrawDop(Graphics g, float X, float Y)
+        {
+            Pen dopwheelspen = new Pen(Color.Black);
+            Brush dopwheelsbrush = new SolidBrush(Color.Red);
+            if (newEnum == EnumW.two)
+            {
+                g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
+                g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
+
+                g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
+            }
+
+            if (newEnum == EnumW.three)
+            {
+                g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
+                g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
+
+                g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
+            }
+
+            if (newEnum == EnumW.four)
+            {
+                g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
+                g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
+                g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
+            
+                g.DrawEllipse(dopwheelspen, X - 5, Y + 24, 20, 20);
+                g.FillEllipse(dopwheelsbrush, X - 5, Y + 24, 20, 20);
+            }
+        }
         public void DrawTwo(Graphics g, float X, float Y)
         {
-            g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
-            g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
-
-            g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
-            g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
+            
         }
         public void DrawThree(Graphics g, float X, float Y)
         {
             DrawTwo(g, X, Y);
-            g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
-            g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
+            
         }
         public void DrawFour(Graphics g, float X, float Y)
         {
             DrawThree(g, X, Y);
-            g.DrawEllipse(dopwheelspen, X - 5, Y + 24, 20, 20);
-            g.FillEllipse(dopwheelsbrush, X - 5, Y + 24, 20, 20);
+            
         }
     }
 }

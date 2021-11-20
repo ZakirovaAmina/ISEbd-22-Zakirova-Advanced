@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Zakirova
 {
-    enum EnumW
+    interface InterDop
     {
-        two = 2,
+        int Number { set; }
 
-        three = 3,
-
-        four = 4
-    };
-
+        void DrawDop(Graphics g, float X, float Y);
+    }
 }
