@@ -49,6 +49,8 @@
     <Compile Include="ClassDop.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="EnumDop.cs" />
+    <Compile Include="InterDop.cs" />
+    <Compile Include="ITTruck.cs" />
     <Compile Include="DumpTruck.cs" />
     <Compile Include="FormTruck.cs">
       <SubType>Form</SubType>
@@ -56,8 +58,12 @@
     <Compile Include="FormTruck.Designer.cs">
       <DependentUpon>FormTruck.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ornament1class.cs" />
+    <Compile Include="Ornament2class.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Truck.cs" />
+    <Compile Include="Vehicle.cs" />
     <EmbeddedResource Include="FormTruck.resx">
       <DependentUpon>FormTruck.cs</DependentUpon>
     </EmbeddedResource>
