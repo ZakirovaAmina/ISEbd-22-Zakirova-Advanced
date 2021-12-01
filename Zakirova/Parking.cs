@@ -14,9 +14,13 @@ namespace Zakirova
     public class Parking<T, M> where T : class, ITTruck where M : class, InterDop
     {
         /// <summary>
-        /// Массив объектов, которые храним
+        /// Список объектов, которые храним
         /// </summary>
-        private readonly T[] _places;
+        public readonly List<T> _places;
+        /// <summary>
+        /// Максимальное количество мест на парковке
+        /// </summary>
+        private readonly int _maxCount;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -33,7 +37,7 @@ namespace Zakirova
         /// Размер парковочного места (высота)
         /// </summary>
         private readonly int _placeSizeHeight = 110;
-
+        
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -43,7 +47,8 @@ namespace Zakirova
         {
             int width = picWidth / _placeSizeWidth;
             int height = picHeight / _placeSizeHeight;
-            _places = new T[width * height];
+            _maxCount = width * height;
+            _places = new List<T>();
             pictureWidth = picWidth;
             pictureHeight = picHeight;
         }
@@ -54,21 +59,14 @@ namespace Zakirova
         /// <param name="p">Парковка</param>
         /// <param name="truck">Добавляемый автомобиль</param>
         /// <returns></returns>
-        public static int operator +(Parking<T, M> p, T truck)
+        public static bool operator +(Parking<T, M> t, T truck)
         {
-            int width = p.pictureWidth / p._placeSizeWidth;
-            for (int i = 0; i < p._places.Length; i++)
+            if (t._places.Count >= t._maxCount)
             {
-                if (p._places[i] == null)
-                {
-                    p._places[i] = truck;
-                    truck.SetPosition(i % width * p._placeSizeWidth + 7, 
-                        (i / width*p._placeSizeHeight+5), p.pictureWidth, p.pictureHeight);
-                    
-                    return i;
-                }
+                return false;
             }
-            return -1;
+            t._places.Add(truck);
+            return true;
         }
 
 
@@ -80,43 +78,38 @@ namespace Zakirova
         /// <param name="index">Индекс места, с которого пытаемся извлечь
         /// объект</param>
         /// <returns></returns>
-    public static T operator -(Parking<T, M> p, int index)
+    public static T operator -(Parking<T, M> t, int index)
         {
-            if ((index < p._places.Length) && (index >= 0))
+            if(index < -1 || index >= t._places.Count)
             {
-                T truck = p._places[index];
-                p._places[index] = null;
-                return truck;
+                return null;
             }
-            return null;
+            T truck = t._places[index];
+            t._places.RemoveAt(index);
+            return truck;
         }
 
-        // Перегрузка на заполненность доков
+        
         public static bool operator >(Parking<T, M> p, double index)
         {
-            double count = 0;
-            for (int i = 0; i < p._places.Length; ++i)
-            {
-                if (p._places[i] != null)
-                {
-                    count++;
-                }
-            }
-            return count > index;
+            return p.count_p() > index;
         }
         public static bool operator <(Parking<T, M> p, double index)
         {
-            double count = 0;
-            for (int i = 0; i < p._places.Length; ++i)
+            return p.count_p() < index;
+        }
+        public int count_p()
+        {
+            int count = 0;
+            for (int i = 0; i < _places.Count; ++i)
             {
-                if (p._places[i] != null)
+                if (_places[i] != null)
                 {
                     count++;
                 }
             }
-            return count < index;
+            return count;
         }
-
         /// <summary>
         /// Метод отрисовки парковки
         /// </summary>
@@ -124,9 +117,11 @@ namespace Zakirova
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            for (int i = 0; i < _places.Length; i++)
+            for (int i = 0; i < _places.Count; i++)
             {
-                _places[i]?.DrawTransport(g);
+                _places[i].SetPosition(5 + i % (pictureWidth / _placeSizeWidth) * _placeSizeWidth + 5, i / (pictureWidth / _placeSizeWidth) *
+               _placeSizeHeight + 6, pictureWidth, pictureHeight);
+                _places[i].DrawTransport(g);
             }
         }
         /// <summary>
@@ -146,6 +141,17 @@ namespace Zakirova
                 }
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth,
                (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
+            }
+        }
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < _maxCount)
+                {
+                    return _places[index];
+                }
+                return null;
             }
         }
     }

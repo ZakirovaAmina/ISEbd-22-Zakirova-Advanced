@@ -32,7 +32,7 @@ namespace Zakirova
             this.pictureBoxParking = new System.Windows.Forms.PictureBox();
             this.button_parkingMod = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button_Take = new System.Windows.Forms.Button();
+            this.button_TakeInStack = new System.Windows.Forms.Button();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.trWheel = new System.Windows.Forms.ComboBox();
@@ -41,6 +41,12 @@ namespace Zakirova
             this.buttonPlaceCheck = new System.Windows.Forms.Button();
             this.maskedTextBoxPlaces = new System.Windows.Forms.MaskedTextBox();
             this.labelplace = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxLevelsName = new System.Windows.Forms.TextBox();
+            this.AddPark = new System.Windows.Forms.Button();
+            this.listBoxParking = new System.Windows.Forms.ListBox();
+            this.DelPark = new System.Windows.Forms.Button();
+            this.button_TakeFromStack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxParking)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBoxCheck.SuspendLayout();
@@ -51,16 +57,16 @@ namespace Zakirova
             this.pictureBoxParking.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBoxParking.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxParking.Name = "pictureBoxParking";
-            this.pictureBoxParking.Size = new System.Drawing.Size(666, 450);
+            this.pictureBoxParking.Size = new System.Drawing.Size(660, 450);
             this.pictureBoxParking.TabIndex = 0;
             this.pictureBoxParking.TabStop = false;
             // 
             // button_parkingMod
             // 
             this.button_parkingMod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_parkingMod.Location = new System.Drawing.Point(666, 32);
+            this.button_parkingMod.Location = new System.Drawing.Point(666, 250);
             this.button_parkingMod.Name = "button_parkingMod";
-            this.button_parkingMod.Size = new System.Drawing.Size(122, 62);
+            this.button_parkingMod.Size = new System.Drawing.Size(122, 38);
             this.button_parkingMod.TabIndex = 2;
             this.button_parkingMod.Text = "Припарковать самосвал";
             this.button_parkingMod.UseVisualStyleBackColor = true;
@@ -69,25 +75,26 @@ namespace Zakirova
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button_Take);
+            this.groupBox1.Controls.Add(this.button_TakeFromStack);
+            this.groupBox1.Controls.Add(this.button_TakeInStack);
             this.groupBox1.Controls.Add(this.maskedTextBox1);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(666, 120);
+            this.groupBox1.Location = new System.Drawing.Point(665, 156);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(122, 74);
+            this.groupBox1.Size = new System.Drawing.Size(132, 88);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Забрать самосвал";
             // 
-            // button_Take
+            // button_TakeInStack
             // 
-            this.button_Take.Location = new System.Drawing.Point(26, 49);
-            this.button_Take.Name = "button_Take";
-            this.button_Take.Size = new System.Drawing.Size(76, 25);
-            this.button_Take.TabIndex = 2;
-            this.button_Take.Text = "Забрать";
-            this.button_Take.UseVisualStyleBackColor = true;
-            this.button_Take.Click += new System.EventHandler(this.button_Take_Click);
+            this.button_TakeInStack.Location = new System.Drawing.Point(0, 49);
+            this.button_TakeInStack.Name = "button_TakeInStack";
+            this.button_TakeInStack.Size = new System.Drawing.Size(63, 39);
+            this.button_TakeInStack.TabIndex = 2;
+            this.button_TakeInStack.Text = "Забрать в стек";
+            this.button_TakeInStack.UseVisualStyleBackColor = true;
+            this.button_TakeInStack.Click += new System.EventHandler(this.button_Take_Click);
             // 
             // maskedTextBox1
             // 
@@ -112,7 +119,7 @@ namespace Zakirova
             "2",
             "3",
             "4"});
-            this.trWheel.Location = new System.Drawing.Point(666, 212);
+            this.trWheel.Location = new System.Drawing.Point(667, 294);
             this.trWheel.Name = "trWheel";
             this.trWheel.Size = new System.Drawing.Size(121, 21);
             this.trWheel.TabIndex = 4;
@@ -125,7 +132,7 @@ namespace Zakirova
             "орнамент 1",
             "орнамент 2",
             "орнамент 3"});
-            this.ornwheels.Location = new System.Drawing.Point(666, 239);
+            this.ornwheels.Location = new System.Drawing.Point(666, 321);
             this.ornwheels.Name = "ornwheels";
             this.ornwheels.Size = new System.Drawing.Size(121, 21);
             this.ornwheels.TabIndex = 5;
@@ -136,7 +143,7 @@ namespace Zakirova
             this.groupBoxCheck.Controls.Add(this.buttonPlaceCheck);
             this.groupBoxCheck.Controls.Add(this.maskedTextBoxPlaces);
             this.groupBoxCheck.Controls.Add(this.labelplace);
-            this.groupBoxCheck.Location = new System.Drawing.Point(668, 302);
+            this.groupBoxCheck.Location = new System.Drawing.Point(666, 348);
             this.groupBoxCheck.Name = "groupBoxCheck";
             this.groupBoxCheck.Size = new System.Drawing.Size(118, 90);
             this.groupBoxCheck.TabIndex = 6;
@@ -169,11 +176,71 @@ namespace Zakirova
             this.labelplace.TabIndex = 0;
             this.labelplace.Text = "Место:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(688, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Парковки:";
+            // 
+            // textBoxLevelsName
+            // 
+            this.textBoxLevelsName.Location = new System.Drawing.Point(675, 25);
+            this.textBoxLevelsName.Name = "textBoxLevelsName";
+            this.textBoxLevelsName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxLevelsName.TabIndex = 8;
+            // 
+            // AddPark
+            // 
+            this.AddPark.Location = new System.Drawing.Point(666, 51);
+            this.AddPark.Name = "AddPark";
+            this.AddPark.Size = new System.Drawing.Size(131, 22);
+            this.AddPark.TabIndex = 9;
+            this.AddPark.Text = "Добавить парковку";
+            this.AddPark.UseVisualStyleBackColor = true;
+            this.AddPark.Click += new System.EventHandler(this.AddPark_Click);
+            // 
+            // listBoxParking
+            // 
+            this.listBoxParking.FormattingEnabled = true;
+            this.listBoxParking.Location = new System.Drawing.Point(668, 79);
+            this.listBoxParking.Name = "listBoxParking";
+            this.listBoxParking.Size = new System.Drawing.Size(120, 43);
+            this.listBoxParking.TabIndex = 10;
+            this.listBoxParking.SelectedIndexChanged += new System.EventHandler(this.listBoxParking_SelectedIndexChanged_1);
+            // 
+            // DelPark
+            // 
+            this.DelPark.Location = new System.Drawing.Point(668, 128);
+            this.DelPark.Name = "DelPark";
+            this.DelPark.Size = new System.Drawing.Size(131, 22);
+            this.DelPark.TabIndex = 11;
+            this.DelPark.Text = "Удалить парковку";
+            this.DelPark.UseVisualStyleBackColor = true;
+            this.DelPark.Click += new System.EventHandler(this.DelPark_Click_1);
+            // 
+            // button_TakeFromStack
+            // 
+            this.button_TakeFromStack.Location = new System.Drawing.Point(68, 49);
+            this.button_TakeFromStack.Name = "button_TakeFromStack";
+            this.button_TakeFromStack.Size = new System.Drawing.Size(64, 39);
+            this.button_TakeFromStack.TabIndex = 3;
+            this.button_TakeFromStack.Text = "Забрать из стека";
+            this.button_TakeFromStack.UseVisualStyleBackColor = true;
+            this.button_TakeFromStack.Click += new System.EventHandler(this.button_TakeFromStack_Click);
+            // 
             // FormTruckParking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DelPark);
+            this.Controls.Add(this.listBoxParking);
+            this.Controls.Add(this.AddPark);
+            this.Controls.Add(this.textBoxLevelsName);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBoxCheck);
             this.Controls.Add(this.ornwheels);
             this.Controls.Add(this.trWheel);
@@ -188,6 +255,7 @@ namespace Zakirova
             this.groupBoxCheck.ResumeLayout(false);
             this.groupBoxCheck.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -196,7 +264,7 @@ namespace Zakirova
         private System.Windows.Forms.PictureBox pictureBoxParking;
         private System.Windows.Forms.Button button_parkingMod;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button_Take;
+        private System.Windows.Forms.Button button_TakeInStack;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox trWheel;
@@ -205,5 +273,11 @@ namespace Zakirova
         private System.Windows.Forms.Button buttonPlaceCheck;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlaces;
         private System.Windows.Forms.Label labelplace;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxLevelsName;
+        private System.Windows.Forms.Button AddPark;
+        private System.Windows.Forms.ListBox listBoxParking;
+        private System.Windows.Forms.Button DelPark;
+        private System.Windows.Forms.Button button_TakeFromStack;
     }
 }
