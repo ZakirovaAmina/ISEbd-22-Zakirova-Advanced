@@ -12,24 +12,25 @@ namespace Zakirova
         private EnumW newEnum;
 
         public int Number { set => newEnum = (EnumW)value; }
-       
-        public ClassDop(int wh_cnt)
+        public Color DopColor { private set; get; }
+
+        public ClassDop(int wh_cnt, Color dopColor)
         {
             Number = wh_cnt;
+            DopColor = dopColor;
         }
-        
-        public void DrawDop(Graphics g, float X, float Y)
+
+        public void DrawDop(Graphics g, Color dopColor, float X, float Y)
         {
             Pen dopwheelspen = new Pen(Color.Black);
-            Brush dopwheelsbrush = new SolidBrush(Color.Red);
-            if (newEnum == EnumW.two)
-            {
+            Brush dopwheelsbrush = new SolidBrush(dopColor);
+           
                 g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
                 g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
 
                 g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
                 g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
-            }
+           
 
             if (newEnum == EnumW.three)
             {
@@ -50,24 +51,11 @@ namespace Zakirova
                 g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
                 g.DrawEllipse(dopwheelspen, X + 40, Y + 24, 20, 20);
                 g.FillEllipse(dopwheelsbrush, X + 40, Y + 24, 20, 20);
-            
+
                 g.DrawEllipse(dopwheelspen, X - 5, Y + 24, 20, 20);
                 g.FillEllipse(dopwheelsbrush, X - 5, Y + 24, 20, 20);
             }
         }
-        public void DrawTwo(Graphics g, float X, float Y)
-        {
-            
-        }
-        public void DrawThree(Graphics g, float X, float Y)
-        {
-            DrawTwo(g, X, Y);
-            
-        }
-        public void DrawFour(Graphics g, float X, float Y)
-        {
-            DrawThree(g, X, Y);
-            
-        }
+       
     }
 }
