@@ -20,26 +20,29 @@ namespace Zakirova
         /// </summary>
         protected readonly int truckHeight = 60;
         /// <summary>
-        /// Признак исходных колес
+        /// Максимальная скорость
         /// </summary>
-
-        private ClassDop Number;
+       
         /// <param name="duct">Признак наличия трубы</param>
         /// <param name="carcase">Признак наличия кузова</param>
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
-        public Truck (int maxSpeed, float weight, Color mainColor, int numwheel, bool wheels)
+        public Truck (int maxSpeed, float weight, Color mainColor)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
-            Number = new ClassDop(numwheel);
-            Wheels = wheels;
+            
         }
 
         /// <param name="maxSpeed">Максимальная скорость</param>
         /// <param name="weight">Вес самосвала</param>
         /// <param name="mainColor">Основной цвет кузова</param>
+        /// <param name="dopColor">Дополнительный цвет</param>
+        /// <param name="duct">Признак наличия трубы</param>
+        /// <param name="carcase">Признак наличия кузова</param>
+        /// <param name="frontLight">Признак наличия передней фары</param>
+        /// <param name="backLight">Признак наличия задней фары</param>
         protected Truck(int maxSpeed, float weight, Color mainColor, int truckWidth, int
 truckHeight)
         {
@@ -48,7 +51,6 @@ truckHeight)
             MainColor = mainColor;
             this.truckWidth = truckWidth;
             this.truckHeight = truckHeight;
-            
         }
         public override void MoveTransport(Direction direction)
         {
@@ -84,31 +86,16 @@ truckHeight)
         public override void DrawTransport(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-            Pen wheel = new Pen(Color.LightBlue);
-          
+                 
             Brush fond = new SolidBrush(Color.Black);            
-            Brush wheels = new SolidBrush(Color.LightBlue);
-
-            
+       
             g.DrawRectangle(pen, _startPosX, _startPosY, 100, 25);
             g.DrawRectangle(pen, _startPosX + 60, _startPosY - 40, 40, 37);
             g.DrawRectangle(pen, _startPosX + 65, _startPosY - 35, 20, 16);
 
             g.FillRectangle(fond, _startPosX, _startPosY, 100, 25);
-            g.FillRectangle(fond, _startPosX + 60, _startPosY - 40, 40, 37);            
-
-            if (Wheels)
-            {
-                g.DrawEllipse(wheel, _startPosX + 75, _startPosY + 24, 20, 20);
-                g.DrawEllipse(wheel, _startPosX + 20, _startPosY + 24, 20, 20);
-                g.DrawEllipse(wheel, _startPosX, _startPosY + 24, 20, 20);
-
-                g.FillEllipse(wheels, _startPosX + 75, _startPosY + 24, 20, 20);
-                g.FillEllipse(wheels, _startPosX + 20, _startPosY + 24, 20, 20);
-                g.FillEllipse(wheels, _startPosX, _startPosY + 24, 20, 20);
-            }
-            
-
+            g.FillRectangle(fond, _startPosX + 60, _startPosY - 40, 40, 37);
+                        
         }
     }
 }

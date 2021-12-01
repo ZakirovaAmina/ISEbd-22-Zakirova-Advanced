@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Zakirova
 {
-    interface InterDop
+    public interface InterDop
     {
         int Number { set; }
 
-        void DrawDop(Graphics g, float X, float Y);
+        void DrawDop(Graphics g,Color dopColor, float X, float Y);
     }
 }

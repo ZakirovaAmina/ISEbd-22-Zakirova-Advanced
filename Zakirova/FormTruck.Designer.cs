@@ -34,8 +34,6 @@
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
             this.pictureBoxTruck = new System.Windows.Forms.PictureBox();
-            this.trWheel = new System.Windows.Forms.ComboBox();
-            this.ornwheels = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTruck)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,39 +105,11 @@
             this.pictureBoxTruck.TabIndex = 6;
             this.pictureBoxTruck.TabStop = false;
             // 
-            // trWheel
-            // 
-            this.trWheel.FormattingEnabled = true;
-            this.trWheel.Items.AddRange(new object[] {
-            "2",
-            "3",
-            "4"});
-            this.trWheel.Location = new System.Drawing.Point(232, 4);
-            this.trWheel.Name = "trWheel";
-            this.trWheel.Size = new System.Drawing.Size(121, 21);
-            this.trWheel.TabIndex = 8;
-            this.trWheel.Text = "Сколько колес?";
-            // 
-            // ornwheels
-            // 
-            this.ornwheels.FormattingEnabled = true;
-            this.ornwheels.Items.AddRange(new object[] {
-            "орнамент 1",
-            "орнамент 2",
-            "орнамент 3"});
-            this.ornwheels.Location = new System.Drawing.Point(359, 4);
-            this.ornwheels.Name = "ornwheels";
-            this.ornwheels.Size = new System.Drawing.Size(121, 21);
-            this.ornwheels.TabIndex = 9;
-            this.ornwheels.Text = "Какой орнамент?";
-            // 
             // FormTruck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.ornwheels);
-            this.Controls.Add(this.trWheel);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonDown);
             this.Controls.Add(this.buttonLeft);
@@ -161,8 +131,6 @@
 		private System.Windows.Forms.Button buttonDown;
 		private System.Windows.Forms.Button buttonRight;
 		private System.Windows.Forms.PictureBox pictureBoxTruck;
-        private System.Windows.Forms.ComboBox trWheel;
-        private System.Windows.Forms.ComboBox ornwheels;
-    }
+	}
 }
 
