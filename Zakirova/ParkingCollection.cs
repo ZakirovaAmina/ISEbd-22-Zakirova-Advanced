@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Zakirova
 {
-     class ParkingCollection
+    class ParkingCollection
     {
         /// <summary>
         /// Словарь (хранилище) с парковками
@@ -67,7 +67,7 @@ namespace Zakirova
         public Parking<Vehicle, ClassDop> this[string ind]
         {
             get
-            {   
+            {
                 if (parkingStages.ContainsKey(ind))
                 {
                     return parkingStages[ind];

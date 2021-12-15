@@ -24,13 +24,13 @@ namespace Zakirova
         {
             Pen dopwheelspen = new Pen(Color.Black);
             Brush dopwheelsbrush = new SolidBrush(dopColor);
-           
-                g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
-                g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
 
-                g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
-                g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
-           
+            g.DrawEllipse(dopwheelspen, X + 20, Y + 24, 20, 20);
+            g.DrawEllipse(dopwheelspen, X + 75, Y + 24, 20, 20);
+
+            g.FillEllipse(dopwheelsbrush, X + 20, Y + 24, 20, 20);
+            g.FillEllipse(dopwheelsbrush, X + 75, Y + 24, 20, 20);
+
 
             if (newEnum == EnumW.three)
             {
@@ -56,6 +56,6 @@ namespace Zakirova
                 g.FillEllipse(dopwheelsbrush, X - 5, Y + 24, 20, 20);
             }
         }
-       
+
     }
 }

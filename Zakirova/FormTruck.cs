@@ -17,9 +17,7 @@ namespace Zakirova
         public FormTruck()
 		{
 			InitializeComponent();		
-		}
-        
-        
+		}  
        
         /// <summary>
         /// Передача самосвала на форму
@@ -49,13 +47,23 @@ namespace Zakirova
         private void button1_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            truck = new Truck(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue);            
-            truck.SetPosition(rnd.Next(80, 500),
-           rnd.Next(10, 100), pictureBoxTruck.Width, pictureBoxTruck.Height);
+            truck = new Truck(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, true);            
+            truck.SetPosition(rnd.Next(80, 500), rnd.Next(10, 100), pictureBoxTruck.Width, pictureBoxTruck.Height);
             Draw();
         }
-
-      
+        
+        /// <summary>
+        /// Обработка нажатия кнопки "улучшение"
+        /// </summary>
+        //private void buttonUpdate_Click(object sender, EventArgs e)
+        //{
+        //    Random rnd = new Random();
+        //    truck = new DumpTruck(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue,
+        //   Color.Yellow, true, true, true, true);
+        //    truck.SetPosition(rnd.Next(80, 500),
+        //   rnd.Next(10, 100), pictureBoxTruck.Width, pictureBoxTruck.Height);
+        //    Draw();
+        //}
         /// <summary>
         /// Обработка нажатия кнопок управления
         /// </summary>

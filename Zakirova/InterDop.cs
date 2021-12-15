@@ -11,6 +11,6 @@ namespace Zakirova
     {
         int Number { set; }
 
-        void DrawDop(Graphics g,Color dopColor, float X, float Y);
+        void DrawDop(Graphics g, Color dopColor, float X, float Y);
     }
 }

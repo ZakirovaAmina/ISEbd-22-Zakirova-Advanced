@@ -37,7 +37,7 @@ namespace Zakirova
         /// Размер парковочного места (высота)
         /// </summary>
         private readonly int _placeSizeHeight = 110;
-        
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -78,9 +78,9 @@ namespace Zakirova
         /// <param name="index">Индекс места, с которого пытаемся извлечь
         /// объект</param>
         /// <returns></returns>
-    public static T operator -(Parking<T, M> t, int index)
+        public static T operator -(Parking<T, M> t, int index)
         {
-            if(index < -1 || index >= t._places.Count)
+            if (index < -1 || index >= t._places.Count)
             {
                 return null;
             }
@@ -89,7 +89,7 @@ namespace Zakirova
             return truck;
         }
 
-        
+
         public static bool operator >(Parking<T, M> p, double index)
         {
             return p.count_p() > index;
@@ -132,11 +132,11 @@ namespace Zakirova
         {
             Pen pen = new Pen(Color.Black, 3);
             for (int i = 0; i < pictureWidth / _placeSizeWidth; i++)
-                
-        {
+
+            {
                 for (int j = 0; j < pictureHeight / _placeSizeHeight + 1; ++j)
                 {//линия рамзетки места
-                    g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight,( i *
+                    g.DrawLine(pen, i * _placeSizeWidth, j * _placeSizeHeight, (i *
                    _placeSizeWidth + _placeSizeWidth / 2) + 90, j * _placeSizeHeight);
                 }
                 g.DrawLine(pen, i * _placeSizeWidth, 0, i * _placeSizeWidth,

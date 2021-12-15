@@ -44,13 +44,11 @@ namespace Zakirova
         /// <param name="carcase">Признак наличия кузова</param>
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
-        /// <param name="wheels">Признак наличия исходных колес</param>
-
         public DumpTruck(int maxSpeed, float weight, Color mainColor, Color dopColor,
        bool duct, bool carcase, bool frontLight, bool backLight, int numwheel, bool wheels, int TruckOrn) :
- base(maxSpeed, weight, mainColor, 100, 60)
+ base(maxSpeed, weight, mainColor, wheels, 100, 60)
         {
-            MaxSpeed = maxSpeed;            
+            MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
             DopColor = dopColor;
@@ -80,13 +78,13 @@ namespace Zakirova
         /// <param name="y">Координата Y</param>
         /// <param name="width">Ширина картинки</param>
         /// <param name="height">Высота картинки</param>
-        
+
         /// <summary>
         /// Отрисовка самосвала
         /// </summary>
         /// <param name="g"></param>
         public override void DrawTransport(Graphics g)
-        {          
+        {
             Pen fog1 = new Pen(DopColor);
             Pen back1 = new Pen(MainColor);
             Pen light1 = new Pen(Color.Yellow);
@@ -98,7 +96,7 @@ namespace Zakirova
             Brush wheels = new SolidBrush(MainColor);
 
             base.DrawTransport(g);
-           
+
             if (Wheels)
             {
                 g.DrawEllipse(wheel, _startPosX + 75, _startPosY + 24, 20, 20);
@@ -134,5 +132,18 @@ namespace Zakirova
                 g.FillRectangle(back, _startPosX, _startPosY - 30, 60, 40);
             }
         }
+        /// <summary>
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
+        }
+        public void SetOrn(InterDop orn)
+        {
+            this.IntD = orn;
+        }
+       
     }
 }
