@@ -14,7 +14,7 @@ namespace Zakirova
         /// <summary>
         /// Ширина отрисовки самосвала
         /// </summary>
-        protected readonly int truckWidth = 100;
+        protected readonly int truckWidth = 90;
         /// <summary>
         /// Высота отрисовки самосвала
         /// </summary>
@@ -27,11 +27,12 @@ namespace Zakirova
         /// <param name="carcase">Признак наличия кузова</param>
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
-        public Truck (int maxSpeed, float weight, Color mainColor)
+        public Truck (int maxSpeed, float weight, Color mainColor, bool wheels)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
+            Wheels = wheels;
             
         }
 
@@ -43,34 +44,35 @@ namespace Zakirova
         /// <param name="carcase">Признак наличия кузова</param>
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
-        protected Truck(int maxSpeed, float weight, Color mainColor, int truckWidth, int
+        protected Truck(int maxSpeed, float weight, Color mainColor, bool wheels,  int truckWidth, int
 truckHeight)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
+            this.Wheels = wheels;
             this.truckWidth = truckWidth;
             this.truckHeight = truckHeight;
         }
         public override void MoveTransport(Direction direction)
         {
-            int scale = 63;
+            int scale = 110;
             float step = MaxSpeed * 100 / Weight;
             switch (direction)
             {
                 // вправо
                 case Direction.Right:
-                    if (_startPosX + step < _pictureWidth - truckWidth - scale) { _startPosX += step; }
+                    if (_startPosX + step < _pictureWidth - truckWidth + scale) { _startPosX += step; }
                     break;
 
                 //влево
                 case Direction.Left:
-                    if (_startPosX - step > scale) { _startPosX -= step; }
+                    if (_startPosX - step > 0) { _startPosX -= step; }
                     break;
 
                 //вверх
                 case Direction.Up:
-                    if (_startPosY - step > scale) { _startPosY -= step; }
+                    if (_startPosY - step > 0) { _startPosY -= step; }
                     break;
 
                 //вниз
@@ -86,16 +88,28 @@ truckHeight)
         public override void DrawTransport(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
-                 
-            Brush fond = new SolidBrush(Color.Black);            
-       
+            Pen wheel = new Pen(MainColor);
+
+            Brush fond = new SolidBrush(Color.Black);
+            Brush wheels = new SolidBrush(MainColor);
+
+
             g.DrawRectangle(pen, _startPosX, _startPosY, 100, 25);
             g.DrawRectangle(pen, _startPosX + 60, _startPosY - 40, 40, 37);
             g.DrawRectangle(pen, _startPosX + 65, _startPosY - 35, 20, 16);
 
             g.FillRectangle(fond, _startPosX, _startPosY, 100, 25);
             g.FillRectangle(fond, _startPosX + 60, _startPosY - 40, 40, 37);
-                        
+            if (Wheels)
+            {
+                g.DrawEllipse(wheel, _startPosX + 75, _startPosY + 24, 20, 20);
+                g.DrawEllipse(wheel, _startPosX + 20, _startPosY + 24, 20, 20);
+                g.DrawEllipse(wheel, _startPosX, _startPosY + 24, 20, 20);
+
+                g.FillEllipse(wheels, _startPosX + 75, _startPosY + 24, 20, 20);
+                g.FillEllipse(wheels, _startPosX + 20, _startPosY + 24, 20, 20);
+                g.FillEllipse(wheels, _startPosX, _startPosY + 24, 20, 20);
+            }
         }
     }
 }

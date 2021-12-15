@@ -12,31 +12,19 @@ namespace Zakirova
 {
     public partial class FormTruckParking : Form
     {
+        /// <summary>
+        /// Объект от класса-коллекции парковок
+        /// </summary>
         private readonly ParkingCollection parkingCollection;
-        private Stack<Vehicle> TruckInStack;
         public FormTruckParking()
         {
             InitializeComponent();
             parkingCollection = new ParkingCollection(pictureBoxParking.Width,
 pictureBoxParking.Height);
-            TruckInStack = new Stack<Vehicle>();
-            Draw();
         }
         /// <summary>
-        /// Метод отрисовки парковки
+        /// Заполнение listBoxLevels
         /// </summary>
-        private void Draw()
-        {
-            if (listBoxParking.SelectedIndex > -1)
-            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
-             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу listBox)
-                Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                parkingCollection[listBoxParking.SelectedItem.ToString()].Draw(gr);
-                pictureBoxParking.Image = bmp;
-            }
-        }
-
         private void ReloadLevels()
         {
             int index = listBoxParking.SelectedIndex;
@@ -57,36 +45,50 @@ pictureBoxParking.Height);
             }
         }
 
+
         /// <summary>
-        /// Обработка нажатия кнопки "Припарковать гоночный автомобиль"
+        /// Метод отрисовки парковки
+        /// </summary>
+        private void Draw()
+        {
+            if (listBoxParking.SelectedIndex > -1)
+            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
+             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу listBox)
+                Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                parkingCollection[listBoxParking.SelectedItem.ToString()].Draw(gr);
+                pictureBoxParking.Image = bmp;
+            }
+        }      
+        /// <summary>
+        /// Обработка нажатия кнопки "Припарковать автомобиль"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_parkingMod_Click(object sender, EventArgs e)
+        private void button_parking_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == DialogResult.OK)
+            var formTruckConfig = new FormTruckConfig();
+            formTruckConfig.AddEvent(AddTruck);
+            formTruckConfig.Show();
+        }
+        /// <summary>
+        /// Метод добавления машины
+        /// </summary>
+        private void AddTruck(Vehicle truck)
+        {
+            if (truck != null && listBoxParking.SelectedIndex > -1)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == DialogResult.OK)
+                if ((parkingCollection[listBoxParking.SelectedItem.ToString()]) + truck)
                 {
-                    bool tmp = true;
-                    if (Convert.ToInt32(trWheel.SelectedItem) == 2 || Convert.ToInt32(trWheel.SelectedItem) == 3 ||
-             Convert.ToInt32(trWheel.SelectedItem) == 4) { tmp = false; }
-                    var truck = new DumpTruck(rnd.Next(100, 300), rnd.Next(1000, 2000), dialog.Color,
-                   dialogDop.Color, true, true, true, true, Convert.ToInt32(trWheel.SelectedItem), tmp, ornwheels.SelectedIndex);
-                    if (parkingCollection[listBoxParking.SelectedItem.ToString()] + truck)
-                    {
-                        Draw();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Парковка переполнена");
-                    }
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Самосвал не удалось поставить");
                 }
             }
         }
+        
         /// <summary>
         /// Обработка нажатия кнопки "Забрать"
         /// </summary>
@@ -97,34 +99,18 @@ pictureBoxParking.Height);
             if (listBoxParking.SelectedIndex > -1 && maskedTextBox1.Text != "")
             {
 
-                var truck = parkingCollection[listBoxParking.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBox1.Text);
+                var truck = parkingCollection[listBoxParking.SelectedItem.ToString()] -
+                    Convert.ToInt32(maskedTextBox1.Text);
                 if (truck != null)
                 {
-                    TruckInStack.Push(truck);
+                    FormTruck form = new FormTruck();
+                    form.SetTruck(truck);
+                    form.ShowDialog();
                 }
                 Draw();
-                maskedTextBox1.Text = "";
             }
         }
 
-        private void buttonPlaceCheck_Click(object sender, EventArgs e)
-        {
-            double index;
-            if (maskedTextBoxPlaces.Text != "")
-            {
-                index = Convert.ToInt32(maskedTextBoxPlaces.Text);
-            }
-            else { return; }
-
-            if (parkingCollection[listBoxParking.SelectedItem.ToString()] > index)
-            {
-                MessageBox.Show("До " + index + " места свободных доков нет");
-            }
-            else if (parkingCollection[listBoxParking.SelectedItem.ToString()] < index)
-            {
-                MessageBox.Show("До " + index + " места есть свободные доки");
-            }
-        }
         /// <summary>
         /// Обработка нажатия кнопки "Добавить парковку"
         /// </summary>
@@ -147,53 +133,28 @@ pictureBoxParking.Height);
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// 
-        private void DelPark_Click_1(object sender, EventArgs e)
+        private void DelPark_Click(object sender, EventArgs e)
         {
             if (listBoxParking.SelectedIndex > -1)
             {
                 if (MessageBox.Show($"Удалить парковку {listBoxParking.SelectedItem.ToString()}?", "Удаление",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
+                {                    
                     parkingCollection.DelParking(textBoxLevelsName.Text);
-                    ReloadLevels();
+                    ReloadLevels();                    
                 }
             }
         }
-
+      
         /// <summary>
         /// Метод обработки выбора элемента на listBoxLevels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// 
-        private void listBoxParking_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void listBoxParking_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Draw();
-        }       
-
-        private void button_TakeFromStack_Click(object sender, EventArgs e)
-        {
-            if (TruckInStack.Count() > 0)
-            {
-                var truck = TruckInStack.Pop();
-                if (truck != null)
-                {
-                    FormTruck form = new FormTruck();
-                    Random rnd = new Random();
-                    truck.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), form.Size.Width, form.Size.Height);
-                    form.SetTruck(truck);
-                    form.ShowDialog();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Стек пустой");
-            }
             Draw();
         }
-
-        
-
-        
     }
 }

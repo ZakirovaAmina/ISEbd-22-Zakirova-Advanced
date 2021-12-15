@@ -18,7 +18,7 @@ namespace Zakirova
             Number = wh_cnt;
         }
 
-        public void DrawDop(Graphics g,Color dopColor, float _startPosX, float _startPosY)
+        public void DrawDop(Graphics g, Color dopColor, float _startPosX, float _startPosY)
         {
             Pen dopwheelspen = new Pen(Color.Red);
             Brush dopwheelsbrush = new SolidBrush(dopColor);

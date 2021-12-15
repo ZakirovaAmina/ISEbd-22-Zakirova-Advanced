@@ -118,7 +118,7 @@
             this.Controls.Add(this.pictureBoxTruck);
             this.Name = "FormTruck";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "dump truck";
+            this.Text = "Самосвал";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTruck)).EndInit();
             this.ResumeLayout(false);
 
