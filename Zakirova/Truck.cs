@@ -20,9 +20,11 @@ namespace Zakirova
         /// </summary>
         protected readonly int truckHeight = 60;
         /// <summary>
-        /// Максимальная скорость
+        /// Разделитель для записи информации в файл
         /// </summary>
-       
+        private readonly char separator = ';';
+        public bool Wheels { protected set; get; }
+
         /// <param name="duct">Признак наличия трубы</param>
         /// <param name="carcase">Признак наличия кузова</param>
         /// <param name="frontLight">Признак наличия передней фары</param>
@@ -35,22 +37,32 @@ namespace Zakirova
             Wheels = wheels;
             
         }
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public Truck(string info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 4)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                Wheels = Convert.ToBoolean(strs[3]);
+            }
+        }
 
         /// <param name="maxSpeed">Максимальная скорость</param>
         /// <param name="weight">Вес самосвала</param>
         /// <param name="mainColor">Основной цвет кузова</param>
-        /// <param name="dopColor">Дополнительный цвет</param>
-        /// <param name="duct">Признак наличия трубы</param>
-        /// <param name="carcase">Признак наличия кузова</param>
-        /// <param name="frontLight">Признак наличия передней фары</param>
-        /// <param name="backLight">Признак наличия задней фары</param>
         protected Truck(int maxSpeed, float weight, Color mainColor, bool wheels,  int truckWidth, int
 truckHeight)
         {
             MaxSpeed = maxSpeed;
             Weight = weight;
             MainColor = mainColor;
-            this.Wheels = wheels;
+            Wheels = wheels;
             this.truckWidth = truckWidth;
             this.truckHeight = truckHeight;
         }
@@ -60,22 +72,22 @@ truckHeight)
             float step = MaxSpeed * 100 / Weight;
             switch (direction)
             {
-                // вправо
+                
                 case Direction.Right:
                     if (_startPosX + step < _pictureWidth - truckWidth + scale) { _startPosX += step; }
                     break;
 
-                //влево
+                
                 case Direction.Left:
                     if (_startPosX - step > 0) { _startPosX -= step; }
                     break;
 
-                //вверх
+                
                 case Direction.Up:
                     if (_startPosY - step > 0) { _startPosY -= step; }
                     break;
 
-                //вниз
+                
                 case Direction.Down:
                     if (_startPosY + step < _pictureHeight - truckHeight) { _startPosY += step; }
                     break;
@@ -110,6 +122,10 @@ truckHeight)
                 g.FillEllipse(wheels, _startPosX + 20, _startPosY + 24, 20, 20);
                 g.FillEllipse(wheels, _startPosX, _startPosY + 24, 20, 20);
             }
+        }
+        public override string ToString()
+        {
+            return $"{MaxSpeed}{separator}{Weight}{separator}{MainColor.Name}{separator}{Wheels}";
         }
     }
 }

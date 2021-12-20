@@ -84,7 +84,7 @@ namespace Zakirova
                         truck = new DumpTruck((int)numericUpDownMaxSpeed.Value,
                             (int)numericUpDownWeightTruck.Value, Color.Black, Color.Brown,
                             checkBoxDuct.Checked, checkBoxCarcase.Checked,
-                            checkBoxFrontLight.Checked, checkBoxBackLight.Checked, Convert.ToInt32(trWheel.SelectedItem), tmp, 1);
+                            checkBoxFrontLight.Checked, checkBoxBackLight.Checked, Convert.ToInt32(trWheel.SelectedItem), tmp, "ClassDop");
                          break;
                 }
                 DrawTruck();
@@ -185,6 +185,7 @@ namespace Zakirova
         private void ornaments_MouseDown(object sender, MouseEventArgs e)
         {
             InterDop orn = null;
+            //int count = Convert.ToInt32(((Label)sender).Text);
             if (truck is DumpTruck)
             {
                 switch (((Label)sender).Text)
@@ -193,12 +194,13 @@ namespace Zakirova
                         orn = new ClassDop(Convert.ToInt32(trWheel.SelectedItem), Color.Pink);
                         break;
                     case "Орнамент 2":
-                        orn = new Ornament1class(Convert.ToInt32(trWheel.SelectedItem));
+                        orn = new Ornament1class(Convert.ToInt32(trWheel.SelectedItem), Color.Pink);
                         break;
                     case "Орнамент 3":
-                        orn = new Ornament2class(Convert.ToInt32(trWheel.SelectedItem));
+                        orn = new Ornament2class(Convert.ToInt32(trWheel.SelectedItem), Color.Pink);
                         break;
                 }
+                
                 if (orn != null)
                 {
                     ((Label)sender).DoDragDrop(orn, DragDropEffects.Move | DragDropEffects.Copy);
