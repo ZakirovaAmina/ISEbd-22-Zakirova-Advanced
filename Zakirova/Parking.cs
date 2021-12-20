@@ -11,7 +11,7 @@ namespace Zakirova
     /// Параметризованный класс для хранения набора объектов от интерфейса Interface1
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Parking<T, M> where T : class, ITTruck where M : class, InterDop
+    public class Parking<T, M> where T : class, ITTruck where M : InterDop
     {
         /// <summary>
         /// Список объектов, которые храним
@@ -147,12 +147,24 @@ namespace Zakirova
         {
             get
             {
-                if (index >= 0 && index < _maxCount)
+                if (index >= 0 && index < _places.Count)
                 {
                     return _places[index];
                 }
                 return null;
             }
+        }
+        public T GetNext(int index)
+        {
+            if (index < 0 || index >= _places.Count)
+            {
+                return null;
+            }
+            return _places[index];
+        }
+        public void ClearPlaces()
+        {
+            _places.Clear();
         }
     }
 }

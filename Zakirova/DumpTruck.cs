@@ -12,7 +12,7 @@ namespace Zakirova
     /// </summary>
     public class DumpTruck : Truck
 	{
-        private InterDop IntD;
+        InterDop IntD;
         /// <summary>
         /// Дополнительный цвет
         /// </summary>
@@ -33,6 +33,12 @@ namespace Zakirova
         /// Признак наличия задней фары
         /// </summary>
         public bool BackLight { private set; get; }
+        public string TruckOrn { private set; get; }
+        public int NumWheel { private set; get; }
+        /// <summary>
+        /// Разделитель для записи информации в файл
+        /// </summary>
+        private readonly char separator = ':';
         /// <summary>
         /// Инициализация свойств
         /// </summary>
@@ -45,7 +51,7 @@ namespace Zakirova
         /// <param name="frontLight">Признак наличия передней фары</param>
         /// <param name="backLight">Признак наличия задней фары</param>
         public DumpTruck(int maxSpeed, float weight, Color mainColor, Color dopColor,
-       bool duct, bool carcase, bool frontLight, bool backLight, int numwheel, bool wheels, int TruckOrn) :
+       bool duct, bool carcase, bool frontLight, bool backLight, int numwheel, bool wheels, string TruckOrn) :
  base(maxSpeed, weight, mainColor, wheels, 100, 60)
         {
             MaxSpeed = maxSpeed;
@@ -56,20 +62,60 @@ namespace Zakirova
             Carcase = carcase;
             FrontLight = frontLight;
             BackLight = backLight;
-
+            NumWheel = numwheel;
             Wheels = wheels;
-            switch (TruckOrn)
+            IntD = new ClassDop(2, dopColor);
+            if (TruckOrn == "ClassDop")
             {
-                case 0:
-                    IntD = new ClassDop(numwheel, mainColor);
-                    break;
-                case 1:
-                    IntD = new Ornament1class(numwheel);
-                    break;
-                case 2:
-                    IntD = new Ornament2class(numwheel);
-                    break;
+                IntD = new ClassDop(numwheel, dopColor);
             }
+            if (TruckOrn == "Ornament1class")
+            {
+                IntD = new Ornament1class(numwheel, dopColor);
+            }
+            if (TruckOrn == "Ornament2class")
+            {
+                IntD = new Ornament2class(numwheel, dopColor);
+            }
+        }
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info"></param>
+        public DumpTruck(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 11)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                Wheels = Convert.ToBoolean(strs[3]);
+                DopColor = Color.FromName(strs[4]);
+                Duct = Convert.ToBoolean(strs[5]);
+                Carcase = Convert.ToBoolean(strs[6]);
+                FrontLight = Convert.ToBoolean(strs[7]);
+                BackLight = Convert.ToBoolean(strs[8]);                             
+                NumWheel = Convert.ToInt32(strs[9]);
+                if (strs[10] == "ClassDop")
+                {
+                    IntD = new ClassDop(2, Color.Pink);
+                }
+                else if (strs[10] == "Ornament1class")
+                {
+                    IntD = new Ornament1class(2, Color.Pink);
+                }
+                else if (strs[10] == "Ornament2class")
+                {
+                    IntD = new Ornament2class(2, Color.Pink);
+                }
+            }
+        }
+        public override string ToString()
+        {
+            return
+           $"{base.ToString()}{separator}{DopColor.Name}{separator}{Duct}{separator}{Carcase}" +
+           $"{separator}{FrontLight}{separator}{BackLight}{separator}{NumWheel}{separator}{TruckOrn}";
         }
         /// <summary>
         /// Установка позиции автомобиля
@@ -142,7 +188,8 @@ namespace Zakirova
         }
         public void SetOrn(InterDop orn)
         {
-            this.IntD = orn;
+            IntD = orn;
+            TruckOrn = IntD.GetType().Name;
         }
        
     }

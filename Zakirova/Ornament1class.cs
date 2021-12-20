@@ -12,10 +12,12 @@ namespace Zakirova
         private EnumW newEnum;
 
         public int Number { set => newEnum = (EnumW)value; }
+        public Color DopColor { private set; get; }
 
-        public Ornament1class(int wh_cnt)
+        public Ornament1class(int wh_cnt, Color dopColor)
         {
             Number = wh_cnt;
+            DopColor = dopColor;
         }
 
         public void DrawDop(Graphics g, Color dopColor, float _startPosX, float _startPosY)

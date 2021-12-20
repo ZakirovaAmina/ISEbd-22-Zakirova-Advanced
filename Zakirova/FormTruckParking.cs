@@ -52,8 +52,7 @@ pictureBoxParking.Height);
         private void Draw()
         {
             if (listBoxParking.SelectedIndex > -1)
-            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
-             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться к элементу listBox)
+            {
                 Bitmap bmp = new Bitmap(pictureBoxParking.Width, pictureBoxParking.Height);
                 Graphics gr = Graphics.FromImage(bmp);
                 parkingCollection[listBoxParking.SelectedItem.ToString()].Draw(gr);
@@ -132,7 +131,7 @@ pictureBoxParking.Height);
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// 
+        
         private void DelPark_Click(object sender, EventArgs e)
         {
             if (listBoxParking.SelectedIndex > -1)
@@ -151,10 +150,85 @@ pictureBoxParking.Height);
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// 
+        
         private void listBoxParking_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
+        }
+
+        private void текущуюПарковкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogTruck.ShowDialog() == DialogResult.OK)
+            {
+                if (listBoxParking.SelectedIndex > -1)
+                {
+                    if (parkingCollection.SaveData(saveFileDialogTruck.FileName, listBoxParking.SelectedItem.ToString()))
+                    {
+                        MessageBox.Show("Сохранение прошло успешно", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не сохранилось", "Результат",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void всеПарковкиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogTruck.ShowDialog() == DialogResult.OK)
+            {
+                if (parkingCollection.SaveData(saveFileDialogTruck.FileName))
+                {
+                    MessageBox.Show("Сохранение прошло успешно", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void однуПарковкуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogTruck.ShowDialog() == DialogResult.OK)
+            {
+                if (parkingCollection.LoadOneParking(openFileDialogTruck.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                    ReloadLevels();
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void всеПарковкиToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogTruck.ShowDialog() == DialogResult.OK)
+            {
+                if (parkingCollection.LoadParking(openFileDialogTruck.FileName))
+                {
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                    ReloadLevels();
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
